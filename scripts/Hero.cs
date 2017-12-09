@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Hero {
+public class Hero : Transform {
 
 	public float speedH = 2.0f;
 	public float speedV = 2.0f;
@@ -13,8 +13,8 @@ public class Hero {
 	float yaw = 0.0f;
 	float pitch = 0.0f;
 
-	protected Weapon left;
-	protected Weapon right;
+	protected Weapon leftWeapon;
+	protected Weapon rightWeapon;
 
 	private Weapon lastShot;
 
@@ -22,24 +22,24 @@ public class Hero {
 
 	protected void shoot() {
 
-		if (left != null && right != null) {
+		if (leftWeapon != null && rightWeapon != null) {
 			//Dual wielding
 			if (lastShot == null) {
-				lastShot = right;
-				right.shoot();
-			} else if (lastShot == left) {
-				lastShot = right;
-				right.shoot();
-			} else if (lastShot == right) {
-				lastShot = left;
-				left.shoot();
+				lastShot = rightWeapon;
+				rightWeapon.shoot();
+			} else if (lastShot == leftWeapon) {
+				lastShot = rightWeapon;
+				rightWeapon.shoot();
+			} else if (lastShot == rightWeapon) {
+				lastShot = leftWeapon;
+				leftWeapon.shoot();
 			}
-		} else if (left != null) {
+		} else if (leftWeapon != null) {
 			//Single weapon
-			left.shoot();
-		} else if (right != null) {
+			leftWeapon.shoot();
+		} else if (rightWeapon != null) {
 			//Single weapon
-			right.shoot();
+			rightWeapon.shoot();
 		} else {
 			//No weapon
 		}
@@ -62,7 +62,7 @@ public class Hero {
 		pos += movementSpeed * body.forward * Time.deltaTime * Input.GetAxis("Horizontal");
 		pos += movementSpeed * body.right * Time.deltaTime * Input.GetAxis("Vertical");
 		
-		transform.position += pos;
+		this.position += pos;
 
 		if (Input.GetMouseButtonDown(0)) {
 			//Left Mouse button
