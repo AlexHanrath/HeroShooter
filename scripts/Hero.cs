@@ -18,7 +18,7 @@ public class Hero {
 
 	private Weapon lastShot;
 
-	protected final Ability[] abilities = new Ability[4];
+	protected readonly Ability[] abilities = new Ability[4];
 
 	protected void shoot() {
 
